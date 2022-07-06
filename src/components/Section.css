@@ -1,0 +1,3 @@
+.section:not(:hover) .create-entry {
+  display: none;
+}

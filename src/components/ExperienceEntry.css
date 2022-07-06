@@ -1,0 +1,24 @@
+.entry:not(:hover) .entry-controls,
+.entry:not(:hover) .delete-highlight {
+  display: none;
+}
+
+.delete-highlight {
+  cursor: pointer;
+}
+
+.delete-highlight:before,
+.delete-highlight:after {
+  position: absolute;
+  left: 50%;
+  content: " ";
+  height: 100%;
+  width: 2px;
+  background-color: #333;
+}
+.delete-highlight:before {
+  transform: translateX(-50%) rotate(45deg);
+}
+.delete-highlight:after {
+  transform: translateX(-50%) rotate(-45deg);
+}
