@@ -1,5 +1,6 @@
 import React from "react";
 import ExperienceEntry from "./ExperienceEntry";
+import ProjectEntry from "./ProjectEntry";
 import Header from "./Header";
 import Section from "./Section";
 
@@ -15,9 +16,16 @@ class Page extends React.Component {
       highlights: [null],
     };
 
+    this.defaultProject = {
+      projectTitle: null,
+      url: null,
+      description: null,
+    };
+
     this.state = {
       entries: {
         experience: [this.defaultExperience],
+        project: [this.defaultProject],
       },
     };
   }
@@ -47,6 +55,28 @@ class Page extends React.Component {
   updateExperience = (index, experienceState) => {
     this.updateState((curState) => {
       curState.entries.experience[index] = experienceState;
+    });
+  };
+
+  createProject = () => {
+    this.updateState((curState) => {
+      curState.entries.project.push({
+        ...this.defaultProject,
+      });
+    });
+  };
+
+  deleteProject = (index) => {
+    this.updateState((curState) => {
+      curState.entries.project = curState.entries.project.filter(
+        (entry, entryIndex) => entryIndex !== index
+      );
+    });
+  };
+
+  updateProject = (index, projectState) => {
+    this.updateState((curState) => {
+      curState.entries.project[index] = projectState;
     });
   };
 
@@ -86,6 +116,17 @@ class Page extends React.Component {
                   experience={entry}
                   updateEntry={this.updateExperience.bind(this, i)}
                   deleteEntry={this.deleteExperience.bind(this, i)}
+                />
+              ))}
+            </Section>
+
+            <Section title="Projects" createEntry={this.createProject}>
+              {this.state.entries.project.map((entry, i) => (
+                <ProjectEntry
+                  key={`project-${i}`}
+                  project={entry}
+                  updateEntry={this.updateProject.bind(this, i)}
+                  deleteEntry={this.deleteProject.bind(this, i)}
                 />
               ))}
             </Section>
