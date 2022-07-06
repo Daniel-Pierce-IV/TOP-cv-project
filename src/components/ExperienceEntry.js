@@ -1,29 +1,11 @@
-import React from "react";
+import Entry from "./Entry";
+import { createRef } from "react";
 import "./ExperienceEntry.css";
 
-class ExperienceEntry extends React.Component {
+class ExperienceEntry extends Entry {
   constructor(props) {
     super(props);
   }
-
-  copyEntryState = () => {
-    return {
-      ...this.props.experience,
-      highlights: [...this.props.experience.highlights],
-    };
-  };
-
-  updateEntry = (mutatorFunction) => {
-    const entryCopy = this.copyEntryState();
-    mutatorFunction(entryCopy);
-    this.props.updateEntry(entryCopy);
-  };
-
-  updateValue = (propertyName, event) => {
-    this.updateEntry((entryCopy) => {
-      entryCopy[propertyName] = event.target.value;
-    });
-  };
 
   createHighlight = () => {
     this.updateEntry((entryCopy) => {
@@ -50,28 +32,16 @@ class ExperienceEntry extends React.Component {
   };
 
   render() {
-    const { jobTitle, employer, timeframe, highlights } = this.props.experience;
-    const { entryKey, deleteEntry } = this.props;
-
+    const { jobTitle, employer, timeframe, highlights } = this.props.entry;
+    const { entryKey } = this.props;
     const mainClasses = "basis-0 grow whitespace-nowrap ";
 
     return (
       <div className="experience entry relative">
-        <div className="control-button-area w-40 absolute -translate-x-full h-full"></div>
-
-        {/* <div className="entry-controls flex flex-col gap-1 h-full absolute -translate-x-full -left-5"> */}
-        <div className="entry-controls flex gap-1 absolute -translate-y-full">
-          <button
-            className="bg-green-300 px-2 py-[2px]"
-            onClick={this.createHighlight}
-          >
-            Add Highlight
-          </button>
-
-          <button className="bg-red-300 px-2 py-[2px]" onClick={deleteEntry}>
-            Delete Entry
-          </button>
-        </div>
+        {this.renderControlOverlay(
+          this.createControl("Add Highlight", this.createHighlight),
+          this.createControl("Delete Entry", this.deleteEntry, "red")
+        )}
 
         <div className="flex justify-between">
           <input
@@ -104,7 +74,8 @@ class ExperienceEntry extends React.Component {
 
         <ul className="pl-4">
           {highlights.map((text, index) => {
-            const highlightRef = React.createRef();
+            const highlightRef = createRef();
+
             return (
               <li key={`${entryKey}-${index}`} className="relative mb-1">
                 <div

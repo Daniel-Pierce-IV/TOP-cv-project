@@ -1,4 +1,3 @@
-.entry:not(:hover) .entry-controls,
 .entry:not(:hover) .delete-highlight {
   display: none;
 }

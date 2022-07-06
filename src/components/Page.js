@@ -113,7 +113,7 @@ class Page extends React.Component {
                 <ExperienceEntry
                   key={`experience-${i}`}
                   entryKey={i}
-                  experience={entry}
+                  entry={entry}
                   updateEntry={this.updateExperience.bind(this, i)}
                   deleteEntry={this.deleteExperience.bind(this, i)}
                 />
@@ -124,7 +124,7 @@ class Page extends React.Component {
               {this.state.entries.project.map((entry, i) => (
                 <ProjectEntry
                   key={`project-${i}`}
-                  project={entry}
+                  entry={entry}
                   updateEntry={this.updateProject.bind(this, i)}
                   deleteEntry={this.deleteProject.bind(this, i)}
                 />

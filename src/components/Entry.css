@@ -1,0 +1,3 @@
+.entry:not(:hover) .entry-controls {
+  display: none;
+}
