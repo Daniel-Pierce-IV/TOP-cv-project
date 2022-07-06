@@ -1,6 +1,6 @@
 import Entry from "./Entry";
-import { createRef } from "react";
 import "./ExperienceEntry.css";
+import DynamicTextarea from "./DynamicTextarea";
 
 class ExperienceEntry extends Entry {
   constructor(props) {
@@ -23,12 +23,6 @@ class ExperienceEntry extends Entry {
     this.updateEntry((entryCopy) => {
       entryCopy.highlights = entryCopy.highlights.filter((e, i) => i !== index);
     });
-  };
-
-  // Ensures that the textarea grows vertically with the text it contains
-  textareaResizer = (textareaRef) => {
-    textareaRef.current.style.height = "auto";
-    textareaRef.current.style.height = textareaRef.current.scrollHeight + "px";
   };
 
   render() {
@@ -74,8 +68,6 @@ class ExperienceEntry extends Entry {
 
         <ul className="pl-4">
           {highlights.map((text, index) => {
-            const highlightRef = createRef();
-
             return (
               <li key={`${entryKey}-${index}`} className="relative mb-1">
                 <div
@@ -83,18 +75,13 @@ class ExperienceEntry extends Entry {
                   onClick={this.deleteHighlight.bind(this, index)}
                 ></div>
 
-                <textarea
-                  ref={highlightRef}
-                  className="w-full block overflow-hidden resize-none"
+                <DynamicTextarea
+                  className="w-full"
                   name={`highlights[${entryKey}][]`}
                   placeholder="A notable task or achievement"
-                  value={text ? text : ""}
-                  rows="1"
-                  onInput={(event) => {
-                    this.updateHighlight(index, event);
-                    this.textareaResizer(highlightRef);
-                  }}
-                ></textarea>
+                  value={text}
+                  onInput={this.updateHighlight.bind(this, index)}
+                />
               </li>
             );
           })}
