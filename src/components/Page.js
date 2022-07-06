@@ -9,19 +9,6 @@ class Page extends React.Component {
     super(props);
     this.pageElement = React.createRef();
 
-    this.defaultExperience = {
-      jobTitle: null,
-      employer: null,
-      timeframe: null,
-      highlights: [null],
-    };
-
-    this.defaultProject = {
-      projectTitle: null,
-      url: null,
-      description: null,
-    };
-
     this.state = {
       entries: {
         experience: [this.defaultExperience],
@@ -35,12 +22,18 @@ class Page extends React.Component {
     this.pageElement.current.style = `max-width: ${this.pageElement.current.clientWidth}px;`;
   };
 
+  get defaultExperience() {
+    return {
+      jobTitle: null,
+      employer: null,
+      timeframe: null,
+      highlights: [null],
+    };
+  }
+
   createExperience = () => {
     this.updateState((curState) => {
-      curState.entries.experience.push({
-        ...this.defaultExperience,
-        highlights: [...this.defaultExperience.highlights],
-      });
+      curState.entries.experience.push(this.defaultExperience);
     });
   };
 
@@ -58,11 +51,17 @@ class Page extends React.Component {
     });
   };
 
+  get defaultProject() {
+    return {
+      projectTitle: null,
+      url: null,
+      description: null,
+    };
+  }
+
   createProject = () => {
     this.updateState((curState) => {
-      curState.entries.project.push({
-        ...this.defaultProject,
-      });
+      curState.entries.project.push(this.defaultProject);
     });
   };
 
