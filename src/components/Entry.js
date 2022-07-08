@@ -32,7 +32,7 @@ class Entry extends React.Component {
       <button
         // key needed to avoid React's "unique key" error
         key={Entry.controlCount++}
-        className={`${colorClass} px-2 py-[2px] hover:brightness-90 active:brightness-[.8]`}
+        className={`${colorClass} px-2 hover:brightness-90 active:brightness-[.8]`}
         onClick={callback}
       >
         {label}
