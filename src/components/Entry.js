@@ -43,7 +43,7 @@ class Entry extends React.Component {
   renderControlOverlay = (...controls) => {
     return (
       // <div className="entry-controls flex flex-col gap-1 h-full absolute -translate-x-full -left-5">
-      <div className="entry-controls flex gap-1 absolute -translate-y-full">
+      <div className="entry-controls flex gap-1 absolute -translate-y-full w-full">
         {controls}
       </div>
     );

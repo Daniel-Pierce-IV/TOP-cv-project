@@ -3,6 +3,7 @@ import ExperienceEntry from "./ExperienceEntry";
 import ProjectEntry from "./ProjectEntry";
 import Header from "./Header";
 import Section from "./Section";
+import SkillEntry from "./SkillEntry";
 
 class Page extends React.Component {
   constructor(props) {
@@ -13,6 +14,7 @@ class Page extends React.Component {
       entries: {
         experience: [this.defaultExperience],
         project: [this.defaultProject],
+        skill: [this.defaultSkill],
       },
     };
   }
@@ -79,6 +81,32 @@ class Page extends React.Component {
     });
   };
 
+  get defaultSkill() {
+    return {
+      text: null,
+    };
+  }
+
+  createSkill = () => {
+    this.updateState((curState) => {
+      curState.entries.skill.push(this.defaultSkill);
+    });
+  };
+
+  deleteSkill = (index) => {
+    this.updateState((curState) => {
+      curState.entries.skill = curState.entries.skill.filter(
+        (entry, entryIndex) => entryIndex !== index
+      );
+    });
+  };
+
+  updateSkill = (index, skillState) => {
+    this.updateState((curState) => {
+      curState.entries.skill[index] = skillState;
+    });
+  };
+
   updateState = (mutatorFunction) => {
     const stateClone = this.copyState();
     mutatorFunction(stateClone);
@@ -126,6 +154,17 @@ class Page extends React.Component {
                   entry={entry}
                   updateEntry={this.updateProject.bind(this, i)}
                   deleteEntry={this.deleteProject.bind(this, i)}
+                />
+              ))}
+            </Section>
+
+            <Section title="Skills" createEntry={this.createSkill}>
+              {this.state.entries.skill.map((entry, i) => (
+                <SkillEntry
+                  key={`skill-${i}`}
+                  entry={entry}
+                  updateEntry={this.updateSkill.bind(this, i)}
+                  deleteEntry={this.deleteSkill.bind(this, i)}
                 />
               ))}
             </Section>
