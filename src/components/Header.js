@@ -1,60 +1,73 @@
 import React from "react";
-import EditableText from "./EditableText";
 
 class Header extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      fullName: "John Doe",
-      title: "Web Developer",
-      phone: "123-456-7890",
-      email: "john.doe@example.com",
-      linkedin: "linkedin.com/john-doe",
-      github: "github.com/john-doe",
+      fullName: null,
+      title: null,
+      phone: null,
+      email: null,
+      linkedin: null,
+      github: null,
     };
   }
 
   render() {
-    const infoClasses = "text-right text-sm whitespace-nowrap";
+    const infoClasses = "text-right text-sm";
+    const { fullName, title, phone, email, github, linkedin } = this.state;
+
     return (
       <header className="flex p-2 px-4 bg-blue-400 justify-between break">
         <div className="flex flex-col grow">
-          <EditableText
-            classes="text-4xl whitespace-nowrap"
-            text={this.state.fullName}
-            onEdit={(value) => this.setState({ fullName: value })}
+          <input
+            className="text-4xl bg-transparent placeholder-gray-200"
+            name="fullName"
+            placeholder="John Doe"
+            value={fullName ? fullName : ""}
+            onInput={(event) => this.setState({ fullName: event.target.value })}
           />
 
-          <EditableText
-            classes="text-xl whitespace-nowrap"
-            text={this.state.title}
-            onEdit={(value) => this.setState({ title: value })}
+          <input
+            className="text-xl bg-transparent placeholder-gray-200"
+            name="title"
+            placeholder="Web Developer"
+            value={title ? title : ""}
+            onInput={(event) => this.setState({ title: event.target.value })}
           />
         </div>
 
-        <div className="flex flex-col justify-center items-stretch">
-          <EditableText
-            classes={infoClasses}
-            text={this.state.phone}
-            onEdit={(value) => this.setState({ phone: value })}
+        <div className="flex flex-col justify-center items-stretch grow">
+          <input
+            className={`${infoClasses} bg-transparent placeholder-gray-200`}
+            name="phone"
+            placeholder="123-456-7890"
+            value={phone ? phone : ""}
+            onInput={(event) => this.setState({ phone: event.target.value })}
           />
 
-          <EditableText
-            classes={infoClasses}
-            text={this.state.email}
-            onEdit={(value) => this.setState({ email: value })}
+          <input
+            className={`${infoClasses} bg-transparent placeholder-gray-200`}
+            name="email"
+            placeholder="john.doe@example.com"
+            value={email ? email : ""}
+            onInput={(event) => this.setState({ email: event.target.value })}
           />
 
-          <EditableText
-            classes={infoClasses}
-            text={this.state.github}
-            onEdit={(value) => this.setState({ github: value })}
+          <input
+            className={`${infoClasses} bg-transparent placeholder-gray-200`}
+            name="github"
+            placeholder="github.com/john-doe"
+            value={github ? github : ""}
+            onInput={(event) => this.setState({ github: event.target.value })}
           />
 
-          <EditableText
-            classes={infoClasses}
-            text={this.state.linkedin}
-            onEdit={(value) => this.setState({ linkedin: value })}
+          <input
+            className={`${infoClasses} bg-transparent placeholder-gray-200`}
+            name="linkedin"
+            placeholder="linkedin.com/john-doe"
+            value={linkedin ? linkedin : ""}
+            onInput={(event) => this.setState({ linkedin: event.target.value })}
           />
         </div>
       </header>
