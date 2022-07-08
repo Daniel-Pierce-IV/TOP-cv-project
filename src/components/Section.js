@@ -22,7 +22,7 @@ class Section extends React.Component {
           </button>
         </div>
 
-        <div className={`flex flex-col px-4 ${this.props.flexClasses}`}>
+        <div className={`flex flex-col ${this.props.flexClasses}`}>
           {children}
         </div>
       </section>
