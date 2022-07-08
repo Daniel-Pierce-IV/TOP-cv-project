@@ -38,7 +38,7 @@ class ProjectEntry extends Entry {
 
         <div className="flex">
           <DynamicTextarea
-            className="grow mx-4"
+            className="grow ml-4"
             name={description}
             placeholder="Description of your project"
             value={description}
