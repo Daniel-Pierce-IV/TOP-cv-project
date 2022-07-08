@@ -74,7 +74,7 @@ class ExperienceEntry extends Entry {
                 className="relative mt-1 first:mt-0"
               >
                 <div
-                  className="delete-highlight absolute h-6 w-6 aspect-square text-red-400 bg-white -translate-x-full top-[12px] -translate-y-1/2 -left-1"
+                  className="delete-highlight absolute h-6 w-6 aspect-square text-red-400 -translate-x-full top-[12px] -translate-y-1/2 -left-1 hover:brightness-[.8] active:brightness-[.6]"
                   onClick={this.deleteHighlight.bind(this, index)}
                 >
                   <svg viewBox="0 0 24 24">
