@@ -27,12 +27,12 @@ class Entry extends React.Component {
     });
   };
 
-  createControl = (label, callback, color = "gray") => {
+  createControl = (label, callback, colorClass = "bg-gray-300") => {
     return (
       <button
         // key needed to avoid React's "unique key" error
         key={Entry.controlCount++}
-        className={`bg-${color}-300 px-2 py-[2px]`}
+        className={`${colorClass} px-2 py-[2px] hover:brightness-90 active:brightness-[.8]`}
         onClick={callback}
       >
         {label}
@@ -43,7 +43,7 @@ class Entry extends React.Component {
   renderControlOverlay = (...controls) => {
     return (
       // <div className="entry-controls flex flex-col gap-1 h-full absolute -translate-x-full -left-5">
-      <div className="entry-controls flex gap-1 absolute -translate-y-full w-full">
+      <div className="entry-controls flex gap-[2px] absolute -translate-y-full bg-gray-600 border-2 border-gray-600">
         {controls}
       </div>
     );

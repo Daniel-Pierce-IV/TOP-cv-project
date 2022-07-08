@@ -16,13 +16,15 @@ class Section extends React.Component {
 
           <button
             onClick={createEntry}
-            className="create-entry bg-green-300 text-lg my-0.5 px-2"
+            className="create-entry bg-green-300 text-lg my-0.5 px-2 hover:brightness-90 active:brightness-[.8]"
           >
             Add Entry
           </button>
         </div>
 
-        <div className="flex flex-col gap-3">{children}</div>
+        <div className={`flex flex-col ${this.props.flexClasses}`}>
+          {children}
+        </div>
       </section>
     );
   }

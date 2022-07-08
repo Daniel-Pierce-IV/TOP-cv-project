@@ -33,14 +33,14 @@ class ExperienceEntry extends Entry {
     return (
       <div className="experience entry relative">
         {this.renderControlOverlay(
-          this.createControl("Add Highlight", this.createHighlight),
-          this.createControl("Delete Entry", this.deleteEntry, "red")
+          this.createControl("Delete Entry", this.deleteEntry, "bg-red-300"),
+          this.createControl("Add Highlight", this.createHighlight)
         )}
 
-        <div className="flex justify-between">
+        <div className="flex justify-between mb-[1px]">
           <input
             type="text"
-            className={mainClasses}
+            className={mainClasses + "mr-[1px]"}
             name="jobTitle"
             placeholder="Job Title"
             value={jobTitle ? jobTitle : ""}
@@ -49,7 +49,7 @@ class ExperienceEntry extends Entry {
 
           <input
             type="text"
-            className={mainClasses + "text-center"}
+            className={mainClasses + "text-center mr-[1px]"}
             name="employer"
             placeholder="Employer"
             value={employer ? employer : ""}
@@ -69,7 +69,10 @@ class ExperienceEntry extends Entry {
         <ul className="pl-4">
           {highlights.map((text, index) => {
             return (
-              <li key={`${entryKey}-${index}`} className="relative mb-1">
+              <li
+                key={`${entryKey}-${index}`}
+                className="relative mt-1 first:mt-0"
+              >
                 <div
                   className="delete-highlight absolute h-full aspect-square bg-red-300 -translate-x-full top-1/2 -translate-y-1/2 -left-1"
                   onClick={this.deleteHighlight.bind(this, index)}

@@ -134,8 +134,23 @@ class Page extends React.Component {
         >
           <Header />
 
-          <div className="p-4 pt-0">
-            <Section title="Experience" createEntry={this.createExperience}>
+          <div className="p-4 pt-0 flex flex-col gap-3">
+            <Section title="Skills" createEntry={this.createSkill}>
+              {this.state.entries.skill.map((entry, i) => (
+                <SkillEntry
+                  key={`skill-${i}`}
+                  entry={entry}
+                  updateEntry={this.updateSkill.bind(this, i)}
+                  deleteEntry={this.deleteSkill.bind(this, i)}
+                />
+              ))}
+            </Section>
+
+            <Section
+              title="Experience"
+              createEntry={this.createExperience}
+              flexClasses="gap-1.5"
+            >
               {this.state.entries.experience.map((entry, i) => (
                 <ExperienceEntry
                   key={`experience-${i}`}
@@ -147,24 +162,17 @@ class Page extends React.Component {
               ))}
             </Section>
 
-            <Section title="Projects" createEntry={this.createProject}>
+            <Section
+              title="Projects"
+              createEntry={this.createProject}
+              flexClasses="gap-1.5"
+            >
               {this.state.entries.project.map((entry, i) => (
                 <ProjectEntry
                   key={`project-${i}`}
                   entry={entry}
                   updateEntry={this.updateProject.bind(this, i)}
                   deleteEntry={this.deleteProject.bind(this, i)}
-                />
-              ))}
-            </Section>
-
-            <Section title="Skills" createEntry={this.createSkill}>
-              {this.state.entries.skill.map((entry, i) => (
-                <SkillEntry
-                  key={`skill-${i}`}
-                  entry={entry}
-                  updateEntry={this.updateSkill.bind(this, i)}
-                  deleteEntry={this.deleteSkill.bind(this, i)}
                 />
               ))}
             </Section>

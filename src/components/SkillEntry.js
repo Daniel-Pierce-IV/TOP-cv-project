@@ -34,12 +34,13 @@ class SkillEntry extends Entry {
     const { label, skills, usingPlaceholder } = this.processText(text);
 
     const controlOverlay = this.renderControlOverlay(
-      this.createControl("Delete Entry", this.deleteEntry, "red"),
+      this.createControl("Delete Entry", this.deleteEntry, "bg-red-300"),
       <input
         type="text"
         key={this.inputKey}
         className="grow"
-        placeholder={`${labelPlaceholder + skillsPlaceholder}`}
+        size={40}
+        placeholder="Enter your skills here"
         value={text ? text : ""}
         onChange={this.updateValue.bind(this, "text")}
       />
@@ -52,7 +53,9 @@ class SkillEntry extends Entry {
         <div className="w-full relative">
           <div
             ref={this.skillsRef}
-            className={`w-full ${usingPlaceholder ? "text-gray-400" : ""}`}
+            className={`w-full cursor-default ${
+              usingPlaceholder ? "text-gray-400" : ""
+            }`}
           >
             <span className="font-bold">
               {usingPlaceholder ? labelPlaceholder : label}

@@ -1,3 +1,8 @@
 .entry:not(:hover) .entry-controls {
   display: none;
 }
+
+.entry:hover {
+  /* bg-gray-600 */
+  outline: rgb(75 85 99) dashed 2px;
+}

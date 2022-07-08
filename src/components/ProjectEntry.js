@@ -13,13 +13,13 @@ class ProjectEntry extends Entry {
     return (
       <div className="experience entry relative">
         {this.renderControlOverlay(
-          this.createControl("Delete Entry", this.deleteEntry, "red")
+          this.createControl("Delete Entry", this.deleteEntry, "bg-red-300")
         )}
 
-        <div className="flex justify-between">
+        <div className="flex justify-between mb-[1px]">
           <input
             type="text"
-            className={mainClasses}
+            className={mainClasses + " mr-[1px]"}
             name="projectTitle"
             placeholder="Project Title"
             value={projectTitle ? projectTitle : ""}
