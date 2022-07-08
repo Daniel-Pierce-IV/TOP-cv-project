@@ -11,6 +11,14 @@ class Page extends React.Component {
     this.pageElement = React.createRef();
 
     this.state = {
+      personalInfo: {
+        fullName: null,
+        title: null,
+        phone: null,
+        email: null,
+        linkedin: null,
+        github: null,
+      },
       entries: {
         experience: [this.defaultExperience],
         project: [this.defaultProject],
@@ -24,6 +32,15 @@ class Page extends React.Component {
     this.pageElement.current.style = `max-width: ${this.pageElement.current.clientWidth}px;`;
   };
 
+  updatePersonalInfo = (changeObj) => {
+    this.setState({
+      personalInfo: {
+        ...this.state.personalInfo,
+        ...changeObj,
+      },
+    });
+  };
+
   get defaultExperience() {
     return {
       jobTitle: null,
@@ -34,13 +51,13 @@ class Page extends React.Component {
   }
 
   createExperience = () => {
-    this.updateState((curState) => {
+    this.updateEntries((curState) => {
       curState.entries.experience.push(this.defaultExperience);
     });
   };
 
   deleteExperience = (index) => {
-    this.updateState((curState) => {
+    this.updateEntries((curState) => {
       curState.entries.experience = curState.entries.experience.filter(
         (entry, entryIndex) => entryIndex !== index
       );
@@ -48,7 +65,7 @@ class Page extends React.Component {
   };
 
   updateExperience = (index, experienceState) => {
-    this.updateState((curState) => {
+    this.updateEntries((curState) => {
       curState.entries.experience[index] = experienceState;
     });
   };
@@ -62,13 +79,13 @@ class Page extends React.Component {
   }
 
   createProject = () => {
-    this.updateState((curState) => {
+    this.updateEntries((curState) => {
       curState.entries.project.push(this.defaultProject);
     });
   };
 
   deleteProject = (index) => {
-    this.updateState((curState) => {
+    this.updateEntries((curState) => {
       curState.entries.project = curState.entries.project.filter(
         (entry, entryIndex) => entryIndex !== index
       );
@@ -76,7 +93,7 @@ class Page extends React.Component {
   };
 
   updateProject = (index, projectState) => {
-    this.updateState((curState) => {
+    this.updateEntries((curState) => {
       curState.entries.project[index] = projectState;
     });
   };
@@ -88,13 +105,13 @@ class Page extends React.Component {
   }
 
   createSkill = () => {
-    this.updateState((curState) => {
+    this.updateEntries((curState) => {
       curState.entries.skill.push(this.defaultSkill);
     });
   };
 
   deleteSkill = (index) => {
-    this.updateState((curState) => {
+    this.updateEntries((curState) => {
       curState.entries.skill = curState.entries.skill.filter(
         (entry, entryIndex) => entryIndex !== index
       );
@@ -102,18 +119,18 @@ class Page extends React.Component {
   };
 
   updateSkill = (index, skillState) => {
-    this.updateState((curState) => {
+    this.updateEntries((curState) => {
       curState.entries.skill[index] = skillState;
     });
   };
 
-  updateState = (mutatorFunction) => {
-    const stateClone = this.copyState();
+  updateEntries = (mutatorFunction) => {
+    const stateClone = this.copyEntriesState();
     mutatorFunction(stateClone);
     this.setState(stateClone);
   };
 
-  copyState = () => {
+  copyEntriesState = () => {
     return {
       entries: {
         ...this.state.entries,
@@ -132,7 +149,10 @@ class Page extends React.Component {
           ref={this.pageElement}
           className="page aspect-[8.5/11] h-full bg-white"
         >
-          <Header />
+          <Header
+            {...this.state.personalInfo}
+            updateInfo={this.updatePersonalInfo}
+          />
 
           <div className="p-4 pt-0 flex flex-col gap-3">
             <Section title="Skills" createEntry={this.createSkill}>
