@@ -1,8 +1,8 @@
-import React from "react";
+import { createRef } from "react";
 
 function DynamicTextarea(props) {
   const { className, name, placeholder, value, onInput } = props;
-  const textareaRef = React.createRef();
+  const textareaRef = createRef();
 
   // Ensures that the textarea grows vertically with the text it contains
   const textareaResizer = (textareaRef) => {
