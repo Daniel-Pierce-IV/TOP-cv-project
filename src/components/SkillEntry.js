@@ -1,5 +1,6 @@
 import ControlPanel from "./ControlPanel";
 import ControlButton from "./ControlButton";
+import "./Entry.css";
 
 export default function SkillEntry(props) {
   function processText(text) {

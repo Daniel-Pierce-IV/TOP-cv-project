@@ -1,6 +1,7 @@
 import ControlButton from "./ControlButton";
 import ControlPanel from "./ControlPanel";
 import DynamicTextarea from "./DynamicTextarea";
+import "./Entry.css";
 
 export default function ProjectEntry(props) {
   const { projectTitle, url, description, deleteEntry, updateEntry } = props;
