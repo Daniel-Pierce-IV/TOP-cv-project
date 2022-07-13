@@ -8,7 +8,7 @@ import SkillEntry from "./SkillEntry";
 import ProjectEntry from "./ProjectEntry";
 import ProjectFactory from "../Project";
 
-function Page() {
+export default function Page() {
   const [personalInfo, setPersonalInfo] = useState({
     fullName: null,
     title: null,
@@ -26,49 +26,22 @@ function Page() {
   }
 
   const [skills, setSkills] = useState(() => [SkillFactory()]);
-
-  function createSkill() {
-    setSkills(skills.concat(SkillFactory()));
-  }
-
-  function deleteSkill(index) {
-    setSkills(skills.filter((e, i) => i !== index));
-  }
-
-  function updateSkill(index, changes) {
-    setSkills(skills.map((e, i) => (i !== index ? e : { ...e, ...changes })));
-  }
+  const [createSkill, deleteSkill, updateSkill] = generateEntryCRUD(
+    skills,
+    setSkills,
+    SkillFactory
+  );
 
   const [experiences, setExperiences] = useState(() => [ExperienceFactory()]);
-
-  function createExperience() {
-    setExperiences(experiences.concat(ExperienceFactory()));
-  }
-
-  function deleteExperience(index) {
-    setExperiences(experiences.filter((e, i) => i !== index));
-  }
-
-  function updateExperience(index, changes) {
-    setExperiences(
-      experiences.map((e, i) => (i !== index ? e : { ...e, ...changes }))
-    );
-  }
+  const [createExperience, deleteExperience, updateExperience] =
+    generateEntryCRUD(experiences, setExperiences, ExperienceFactory);
 
   const [projects, setProjects] = useState(() => [ProjectFactory()]);
-
-  function createProject() {
-    setProjects(projects.concat(ProjectFactory()));
-  }
-  function deleteProject(index) {
-    setProjects(projects.filter((e, i) => i !== index));
-  }
-
-  function updateProject(index, changes) {
-    setProjects(
-      projects.map((e, i) => (i !== index ? e : { ...e, ...changes }))
-    );
-  }
+  const [createProject, deleteProject, updateProject] = generateEntryCRUD(
+    projects,
+    setProjects,
+    ProjectFactory
+  );
 
   const pageElement = createRef();
 
@@ -133,4 +106,18 @@ function Page() {
   );
 }
 
-export default Page;
+function generateEntryCRUD(entries, setEntries, EntryFactory) {
+  return [
+    function createEntry() {
+      setEntries(entries.concat(EntryFactory()));
+    },
+    function deleteEntry(index) {
+      setEntries(entries.filter((e, i) => i !== index));
+    },
+    function updateEntry(index, changes) {
+      setEntries(
+        entries.map((e, i) => (i !== index ? e : { ...e, ...changes }))
+      );
+    },
+  ];
+}
