@@ -1,41 +1,52 @@
-import Entry from "./Entry";
-import "./ExperienceEntry.css";
+import React from "react";
 import DynamicTextarea from "./DynamicTextarea";
+import ControlPanel from "./ControlPanel";
+import ControlButton from "./ControlButton";
+import "./ExperienceEntry.css";
+import "./Entry.css";
 
-class ExperienceEntry extends Entry {
+class ExperienceEntry extends React.Component {
   constructor(props) {
     super(props);
   }
 
   createHighlight = () => {
-    this.updateEntry((entryCopy) => {
-      entryCopy.highlights.push(null);
-    });
+    this.props.updateEntry({ highlights: [...this.props.highlights, null] });
   };
 
   updateHighlight = (index, event) => {
-    this.updateEntry((entryCopy) => {
-      entryCopy.highlights[index] = event.target.value;
+    this.props.updateEntry({
+      highlights: this.props.highlights.map((e, i) =>
+        i !== index ? e : event.target.value
+      ),
     });
   };
 
   deleteHighlight = (index) => {
-    this.updateEntry((entryCopy) => {
-      entryCopy.highlights = entryCopy.highlights.filter((e, i) => i !== index);
+    this.props.updateEntry({
+      highlights: this.props.highlights.filter((e, i) => i !== index),
     });
   };
 
+  updateProperty = (propertyName, event) => {
+    this.props.updateEntry({ [propertyName]: event.target.value });
+  };
+
   render() {
-    const { jobTitle, employer, timeframe, highlights } = this.props.entry;
-    const { entryKey } = this.props;
+    const { jobTitle, employer, timeframe, highlights, deleteEntry } =
+      this.props;
     const mainClasses = "basis-0 grow whitespace-nowrap ";
 
     return (
       <div className="experience entry relative">
-        {this.renderControlOverlay(
-          this.createControl("Delete Entry", this.deleteEntry, "bg-red-300"),
-          this.createControl("Add Highlight", this.createHighlight)
-        )}
+        <ControlPanel>
+          <ControlButton
+            label="Delete Entry"
+            onClick={deleteEntry}
+            colorClass="bg-red-300"
+          />
+          <ControlButton label="Add Highlight" onClick={this.createHighlight} />
+        </ControlPanel>
 
         <div className="flex justify-between mb-[1px]">
           <input
@@ -44,7 +55,7 @@ class ExperienceEntry extends Entry {
             name="jobTitle"
             placeholder="Job Title"
             value={jobTitle ? jobTitle : ""}
-            onInput={this.updateValue.bind(this, "jobTitle")}
+            onInput={this.updateProperty.bind(this, "jobTitle")}
           />
 
           <input
@@ -53,7 +64,7 @@ class ExperienceEntry extends Entry {
             name="employer"
             placeholder="Employer"
             value={employer ? employer : ""}
-            onInput={this.updateValue.bind(this, "employer")}
+            onInput={this.updateProperty.bind(this, "employer")}
           />
 
           <input
@@ -62,17 +73,14 @@ class ExperienceEntry extends Entry {
             name="timeframe"
             placeholder="20XX - Present"
             value={timeframe ? timeframe : ""}
-            onInput={this.updateValue.bind(this, "timeframe")}
+            onInput={this.updateProperty.bind(this, "timeframe")}
           />
         </div>
 
         <ul className="pl-4">
           {highlights.map((text, index) => {
             return (
-              <li
-                key={`${entryKey}-${index}`}
-                className="relative mt-1 first:mt-0"
-              >
+              <li key={index} className="relative mt-1 first:mt-0">
                 <div
                   className="delete-highlight absolute h-6 w-6 aspect-square text-red-400 -translate-x-full top-[12px] -translate-y-1/2 -left-1 hover:brightness-[.8] active:brightness-[.6]"
                   onClick={this.deleteHighlight.bind(this, index)}
@@ -96,7 +104,7 @@ class ExperienceEntry extends Entry {
 
                 <DynamicTextarea
                   className="w-full"
-                  name={`highlights[${entryKey}][]`}
+                  name={`highlights[]`}
                   placeholder="A notable task or achievement"
                   value={text}
                   onInput={this.updateHighlight.bind(this, index)}
